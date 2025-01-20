@@ -14,6 +14,7 @@ APT_PACKAGES=(
 )
 
 PIP_PACKAGES=(
+    "segment_anything"
     "segment-anything"
     "scikit-image"
     "scikit-learn"
