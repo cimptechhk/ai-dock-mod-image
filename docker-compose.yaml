@@ -69,7 +69,7 @@ services:
         - WORKSPACE_SYNC=${WORKSPACE_SYNC:-false}
         - CF_TUNNEL_TOKEN=${CF_TUNNEL_TOKEN:-}
         - CF_QUICK_TUNNELS=${CF_QUICK_TUNNELS:-true}
-        - CIVITAI_TOKEN=${CIVITAI_TOKEN:-}
+        - CIVITAI_TOKEN=${CIVITAI_TOKEN:-78348009fc8876395288b6d7102d9929}
         - HF_TOKEN=${HF_TOKEN:-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}
         - WEB_ENABLE_AUTH=${WEB_ENABLE_AUTH:-false}
         - WEB_ENABLE_HTTPS=${WEB_ENABLE_HTTPS:-false}
