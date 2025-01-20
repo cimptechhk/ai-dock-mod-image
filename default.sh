@@ -117,6 +117,7 @@ declare -A HF_REPOS=(
     ["https://cimptech:${HF_TOKEN}@huggingface.co/cimp-tech/insightface"]="/${WORKSPACE}/ComfyUI/models/insightface"
     ["https://cimptech:${HF_TOKEN}@huggingface.co/cimp-tech/ipadapter"]="/${WORKSPACE}/ComfyUI/models/ipadapter"
     #["https://cimptech:${HF_TOKEN}@huggingface.co/cimp-tech/test"]="/${WORKSPACE}/"
+    ["https://cimptech:${HF_TOKEN}@huggingface.co/AdamCodd/vit-base-nsfw-detector"]="/${WORKSPACE}/ComfyUI/models/nsfw_detector/vit-base-nsfw-detector"
 )
 
 CHECKPOINT_MODELS=(
