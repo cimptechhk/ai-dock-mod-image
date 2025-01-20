@@ -93,7 +93,8 @@ NODES=(
     "https://github.com/sipherxyz/comfyui-art-venture"
     "https://github.com/kijai/ComfyUI-KJNodes"
     "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
-    "https://github.com/Gourieff/comfyui-reactor-node"
+    #"https://github.com/Gourieff/comfyui-reactor-node"
+    "https://github.com/Gourieff/ComfyUI-ReActor"
     "https://github.com/jakechai/ComfyUI-JakeUpgrade"
     "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
 )
