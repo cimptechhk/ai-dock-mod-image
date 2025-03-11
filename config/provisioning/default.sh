@@ -104,6 +104,8 @@ WORKFLOWS=(
     "https://huggingface.co/cimp-tech/ComfyUI-workflows/resolve/main/Changing%20Cloth.json"
     "https://huggingface.co/cimp-tech/ComfyUI-workflows/resolve/main/Create%20Character%20%26%20Character%20sheet.json"
     "https://huggingface.co/cimp-tech/ComfyUI-workflows/resolve/main/Image%20Pass%20Extraction%20%26%20Change%20Style.json"
+    "https://huggingface.co/cimp-tech/ComfyUI-workflows/resolve/main/Character_sheet_PuLID.json"
+    "https://huggingface.co/cimp-tech/ComfyUI-workflows/resolve/main/Cog_Hunyuan_V2V.json"
 )
 
 declare -A HF_REPOS=(
