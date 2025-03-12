@@ -96,6 +96,27 @@ NODES=(
     "https://github.com/Gourieff/comfyui-reactor-node"
     "https://github.com/jakechai/ComfyUI-JakeUpgrade"
     "https://github.com/ltdrdata/ComfyUI-Impact-Subpack"
+    "https://github.com/pythongosssss/ComfyUI-Custom-Scripts"
+    "https://github.com/kijai/ComfyUI-LivePortraitKJ"
+    "https://github.com/Fannovel16/ComfyUI-Frame-Interpolation"
+    "https://github.com/giriss/comfy-image-saver"
+    "https://github.com/akatz-ai/ComfyUI-DepthCrafter-Nodes"
+    "https://github.com/kijai/ComfyUI-CogVideoXWrapper"
+    "https://github.com/kijai/ComfyUI-Florence2"
+    "https://github.com/un-seen/comfyui-tensorops"
+    "https://github.com/lldacing/ComfyUI_PuLID_Flux_ll"
+    "https://github.com/chengzeyi/Comfy-WaveSpeed"
+    "https://github.com/city96/ComfyUI-GGUF"
+    "https://github.com/jags111/efficiency-nodes-comfyui"
+    "https://github.com/ssitu/ComfyUI_UltimateSDUpscale"
+    "https://github.com/SeargeDP/SeargeSDXL"
+    "https://github.com/Suzie1/ComfyUI_Comfyroll_CustomNodes"
+    "https://github.com/M1kep/Comfy_KepListStuff"
+    "https://github.com/jjkramhoeft/ComfyUI-Jjk-Nodes"
+    "https://github.com/SozeInc/ComfyUI_Soze"
+    "https://github.com/MoonHugo/ComfyUI-BiRefNet-Hugo"
+    "https://github.com/mirabarukaso/ComfyUI_Mira"
+    "https://github.com/stormcenter/ComfyUI-AutoSplitGridImage"
 )
 
 WORKFLOWS=(
@@ -150,7 +171,7 @@ STYLE_MODELS=(
 )
 
 UNET_MODELS=(
-
+    "https://huggingface.co/lllyasviel/FLUX.1-dev-gguf/resolve/d4374ef1edc2e1c0ef8907e57eb2588834170c96/flux1-dev-Q4_K_S.gguf"
 )
 
 LORA_MODELS=(
@@ -194,6 +215,7 @@ CONTROLNET_MODELS=(
     "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15_canny_fp16.safetensors" 
     "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15_lineart_fp16.safetensors"
     "https://huggingface.co/comfyanonymous/ControlNet-v1-1_fp16_safetensors/resolve/main/control_v11p_sd15_openpose_fp16.safetensors"
+    "https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors"
 )
 
 IPADAPTER_LORA_MODELS=(
@@ -218,8 +240,14 @@ INSPYRENET_MODELS=(
     "https://huggingface.co/1038lab/inspyrenet/resolve/main/inspyrenet.safetensors"
 )
 
+ULTRALYTICS_BBOX_MODELS=(
+    "https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov9c.pt"
+
+)
+
 ULTRALYTICS_SEGM_MODELS=(
     "https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt"
+    "https://huggingface.co/muciz/iseng/resolve/ac3f4bba2423d5e29af5cbd73eb2fc0e433e0c2f/PitEyeDetailer-v2-seg.pt"
 )
 
 FLUX1_DIFFUSION_MODELS=(
@@ -237,6 +265,15 @@ FLUX_TEXT_ENCODERS=(
 
 FLUX1_CONTROLNET_MODELS=(
     "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux_shakker_labs_union_pro-fp8_e4m3fn.safetensors"
+)
+
+PULID_MODELS=(
+    "https://huggingface.co/guozinan/PuLID/resolve/main/pulid_flux_v0.9.1.safetensors"
+)
+
+UPSCALE_MODELS=(
+    "https://huggingface.co/ai-forever/Real-ESRGAN/resolve/main/RealESRGAN_x2.pth"
+    "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth"
 )
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
@@ -300,6 +337,13 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/upscale_models" \
+        "${UPSCALE_MODELS[@]}"
+    # PuLID
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/pulid" \
+        "${PULID_MODELS[@]}" 
     # vitmatte
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/vitmatte" \
@@ -309,6 +353,9 @@ function provisioning_start() {
         "${WORKSPACE}/ComfyUI/models/loras/ipadapter" \
         "${IPADAPTER_LORA_MODELS[@]}"
     # ultralytics
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/ultralytics/bbox" \
+        "${ULTRALYTICS_BBOX_MODELS[@]}"
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/ultralytics/segm" \
         "${ULTRALYTICS_SEGM_MODELS[@]}"
