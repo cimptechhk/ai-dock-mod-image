@@ -419,7 +419,7 @@ function provisioning_start() {
         "${WORKSPACE}/ComfyUI/models/reactor/facerestore_models" \
         "${REACTOR_FACERESTORE_MODELS[@]}"
     # layer_style END
-    provisioning_unzip_file "${WORKSPACE}/ComfyUI/models/reactor/buffalo_l.zip"
+    #provisioning_unzip_file "${WORKSPACE}/ComfyUI/models/reactor/buffalo_l.zip"
     provisioning_print_end
 }
 
@@ -564,36 +564,5 @@ function provisioning_download() {
 }
 
 # Unzip file
-function provisioning_unzip_file() {
-    local zip_path="$1"
-    
-    # Check if zip file exists
-    if [[ ! -f "$zip_path" ]]; then
-        printf "Error: Zip file not found at %s\n" "$zip_path"
-        return 1
-    
-    
-    # Get the directory containing the zip file
-    local parent_dir=$(dirname "$zip_path")
-    
-    # Get the zip filename without extension
-    local filename=$(basename "$zip_path")
-    local folder_name="${filename%.*}"
-    
-    # Create the extraction directory with same name as zip
-    local extract_path="${parent_dir}/${folder_name}"
-    mkdir -p "$extract_path"
-    
-    printf "Extracting %s to %s...\n" "$zip_path" "$extract_path"
-    
-    # Try to unzip the file
-    if unzip -q "$zip_path" -d "$extract_path"; then
-        printf "Successfully extracted %s\n" "$zip_path"
-        return 0
-    else
-        printf "Error: Failed to extract %s\n" "$zip_path"
-        return 1
-    fi
-}
 
 provisioning_start
