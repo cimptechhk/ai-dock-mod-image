@@ -276,6 +276,42 @@ UPSCALE_MODELS=(
     "https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth"
 )
 
+REACTOR_MODELS=(
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/buffalo_l.zip"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/inswapper_128.onnx"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/inswapper_128_fp16.onnx"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/reswapper_128.onnx"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/reswapper_256.onnx"
+)
+
+REACTOR_SAMS_MODELS=(
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/sams/sam_vit_b_01ec64.pth"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/sams/sam_vit_l_0b3195.pth"
+)
+
+REACTOR_DETECTION_BBOX_MODELS=(
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/detection/bbox/face_yolov8m.pt"
+)
+
+REACTOR_DETECTION_SEGM_MODELS=(
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/detection/segm/face_yolov8m-seg_60.pt"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/detection/segm/hair_yolov8n-seg_60.pt"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/detection/segm/person_yolov8m-seg.pt"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/detection/segm/skin_yolov8m-seg_400.pt"
+)
+
+REACTOR_FACERESTORE_MODELS=(
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/GFPGANv1.3.onnx"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/GFPGANv1.3.pth"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/GFPGANv1.4.onnx"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/GFPGANv1.4.pth"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/GPEN-BFR-1024.onnx"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/GPEN-BFR-2048.onnx"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/GPEN-BFR-512.onnx"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/RestoreFormer_PP.onnx"
+    "https://huggingface.co/datasets/Gourieff/ReActor/resolve/main/models/facerestore_models/codeformer-v0.1.0.pth"
+)
+
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
 
 function provisioning_start() {
@@ -366,7 +402,24 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/rmbg/INSPYRENET" \
         "${INSPYRENET_MODELS[@]}"
+    # ReActor
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/reactor" \
+        "${REACTOR_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/reactor/sams" \
+        "${REACTOR_SAMS_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/reactor/detection/bbox" \
+        "${REACTOR_DETECTION_BBOX_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/reactor/detection/segm" \
+        "${REACTOR_DETECTION_SEGM_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/reactor/facerestore_models" \
+        "${REACTOR_FACERESTORE_MODELS[@]}"
     # layer_style END
+    provisioning_unzip_file "${WORKSPACE}/ComfyUI/models/reactor/buffalo_l.zip"
     provisioning_print_end
 }
 
@@ -507,6 +560,39 @@ function provisioning_download() {
         wget --header="Authorization: Bearer $auth_token" -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
     else
         wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
+    fi
+}
+
+# Unzip file
+function provisioning_unzip_file() {
+    local zip_path="$1"
+    
+    # Check if zip file exists
+    if [[ ! -f "$zip_path" ]]; then
+        printf "Error: Zip file not found at %s\n" "$zip_path"
+        return 1
+    
+    
+    # Get the directory containing the zip file
+    local parent_dir=$(dirname "$zip_path")
+    
+    # Get the zip filename without extension
+    local filename=$(basename "$zip_path")
+    local folder_name="${filename%.*}"
+    
+    # Create the extraction directory with same name as zip
+    local extract_path="${parent_dir}/${folder_name}"
+    mkdir -p "$extract_path"
+    
+    printf "Extracting %s to %s...\n" "$zip_path" "$extract_path"
+    
+    # Try to unzip the file
+    if unzip -q "$zip_path" -d "$extract_path"; then
+        printf "Successfully extracted %s\n" "$zip_path"
+        return 0
+    else
+        printf "Error: Failed to extract %s\n" "$zip_path"
+        return 1
     fi
 }
 
