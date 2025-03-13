@@ -520,7 +520,7 @@ function provisioning_start() {
         "${UPSCALE_MODELS[@]}"
     # Florence-2-base
     provisioning_get_models \
-        "${WORKSPACE}/ComfyUI/models/Florence-2-base" \
+        "${WORKSPACE}/ComfyUI/models/LLM/Florence-2-base" \
         "${FLORENCE_2_BASE[@]}"
     # PuLID
     provisioning_get_models \
