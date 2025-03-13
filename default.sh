@@ -440,6 +440,13 @@ COGVIDEO_CONTROL_VAE_MODELS=(
     "https://huggingface.co/alibaba-pai/CogVideoX-Fun-V1.1-5b-Control/resolve/main/vae/diffusion_pytorch_model.safetensors"
 )
 
+COGVIDEO_LORAS=(
+    "https://huggingface.co/alibaba-pai/CogVideoX-Fun-V1.1-Reward-LoRAs/resolve/main/CogVideoX-Fun-V1.1-2b-InP-HPS2.1.safetensors"
+    "https://huggingface.co/alibaba-pai/CogVideoX-Fun-V1.1-Reward-LoRAs/resolve/main/CogVideoX-Fun-V1.1-2b-InP-MPS.safetensors"
+    "https://huggingface.co/alibaba-pai/CogVideoX-Fun-V1.1-Reward-LoRAs/resolve/main/CogVideoX-Fun-V1.1-5b-InP-HPS2.1.safetensors"
+    "https://huggingface.co/alibaba-pai/CogVideoX-Fun-V1.1-Reward-LoRAs/resolve/main/CogVideoX-Fun-V1.1-5b-InP-MPS.safetensors"
+)
+
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
 
 function provisioning_start() {
@@ -598,6 +605,9 @@ function provisioning_start() {
     provisioning_get_models \
         "${WORKSPACE}/ComfyUI/models/CogVideo/CogVideoX-Fun-V1.1-5b-Control/vae" \
         "${COGVIDEO_CONTROL_VAE_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/ComfyUI/models/CogVideo/loras" \
+        "${COGVIDEO_LORAS[@]}"
     # CogVideo Control END
     provisioning_unzip_buffalo
     provisioning_print_end
