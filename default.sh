@@ -40,7 +40,7 @@ PIP_PACKAGES=(
     "albumentations>=1.4.16"
     "ultralytics"
     "tyro==0.8.5"
-    "torch==2.6.0"
+    "torch"
     "opencv-contrib-python"
     "pymatting"
     "colour-science"
