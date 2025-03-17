@@ -18,7 +18,7 @@ PIP_PACKAGES=(
     "scikit-image"
     "scikit-learn"
     "piexif"
-    "opencv-python>=4.7.0.72"
+    "opencv-python"
     "scipy"
     "numpy<2"
     "dill"
